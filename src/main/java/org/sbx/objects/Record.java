@@ -1,23 +1,17 @@
 package org.sbx.objects;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.sbx.interfaces.Buildable;
-
 import java.util.Date;
+import java.util.Observable;
 
 /**
- * Created by aloginov on 19.10.16.
+ * Created by aloginov on 20.10.16.
  */
-public class LogRecord extends Record implements Buildable{
+public abstract class Record extends Observable {
 
-    private static final Logger logger = LogManager.getLogger(LogRecord.class);
-
-    private Date date;
-    private String logLevel;
-    private int itemsCount;
-    private boolean isChanged;
-
+    protected Date date;
+    protected String logLevel;
+    protected int itemsCount;
+    protected boolean isChanged;
 
     public Date getDate() {
         return date;
@@ -43,12 +37,18 @@ public class LogRecord extends Record implements Buildable{
         this.itemsCount = itemsCount;
     }
 
-    public void save() {
-
-        saved();
+    protected void change(){
+        if (isChanged == false)
+            isChanged = true;
     }
 
-    public void load() {
-
+    protected void saved(){
+        if (isChanged == true){
+            isChanged = false;
+        }
     }
+
+    public abstract void save();
+
+    public abstract void load();
 }
