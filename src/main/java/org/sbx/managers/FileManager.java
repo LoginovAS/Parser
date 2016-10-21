@@ -9,6 +9,8 @@ import org.sbx.interfaces.LoggingMessenger;
 import org.sbx.messages.ApplicationDebugMessages;
 import org.sbx.messages.FileErrorMessages;
 import org.sbx.messages.FileInfoMessages;
+import org.sbx.objects.DBRecord;
+import org.sbx.objects.Record;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +22,7 @@ import java.util.Scanner;
 /**
  * Created by aloginov on 19.10.16.
  */
-public class FileManager implements DataManager {
+public class FileManager extends DataManager {
     private static final Logger logger = LogManager.getLogger(FileManager.class);
 
     private File file;
@@ -38,7 +40,7 @@ public class FileManager implements DataManager {
 
     }
 
-    public FileManager(String fileName){
+    public void setFile(String fileName){
         try {
             initFile(fileName);
         } catch (FilesException ex){
@@ -96,6 +98,10 @@ public class FileManager implements DataManager {
 
     public List<String> getDataList(){
         return list;
+    }
+
+    public Record getRecord() {
+        return null;
     }
 
     private boolean isFileExists() {

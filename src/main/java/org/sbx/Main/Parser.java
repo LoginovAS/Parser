@@ -18,6 +18,10 @@ import java.util.regex.Pattern;
  */
 public class Parser {
 
+    private String targetString;
+    private String regExp;
+    private List<String> list;
+
     private static final Logger logger = LogManager.getLogger(Parser.class);
     public Date getDateByString(String stringDate, String format){
         Date date = null;
@@ -31,14 +35,41 @@ public class Parser {
         return date;
     }
 
-    public List<String> parse(String targetString, String patternString){
-        List<String> list = new ArrayList<String>();
-        final Matcher matcher = Pattern.compile(patternString).matcher(targetString);
+    public void setTargetString(String targetString){
+        this.targetString = targetString;
+    }
+
+    public void setRegExp(String regExp){
+        this.regExp = regExp;
+    }
+
+    public Date getDate(String format){
+        Date date = null;
+        DateFormat dateFormat = new SimpleDateFormat(format); //MM.dd.yyyy HH:mm:ss.SSS
+        String stringDate = list.get(0);
+        try {
+            date = dateFormat.parse(stringDate);
+        } catch (ParseException ex){
+            logger.error(ApplicationDebugMessages.CANNOT_PARSE_DATE.getMessage(), stringDate);
+        }
+
+        return date;
+    }
+
+    public String getLogLevel(){
+        return list.get(9);
+    }
+
+    public int getItemCount(){
+        return Integer.parseInt(list.get(11));
+    }
+
+    public void parse(){
+        this.list = new ArrayList<String>();
+        final Matcher matcher = Pattern.compile(regExp).matcher(targetString);
         if (matcher.find()){
             for (int i = 1; i <= matcher.groupCount(); i++)
                 list.add(matcher.group(i));
         }
-
-        return list;
     }
 }
