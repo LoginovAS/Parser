@@ -44,8 +44,11 @@ public class DBManager extends DataManager {
     }
 
     public void closeConnection(){
-        if (session.isOpen())
-            session.close();
+        if (tx != null){
+            tx.commit();
+            if (session.isOpen())
+                session.close();
+        }
     }
 
     public List<String> getDataList() {

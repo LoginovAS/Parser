@@ -46,22 +46,30 @@ public class Parser {
     public Date getDate(String format){
         Date date = null;
         DateFormat dateFormat = new SimpleDateFormat(format); //MM.dd.yyyy HH:mm:ss.SSS
-        String stringDate = list.get(0);
-        try {
-            date = dateFormat.parse(stringDate);
-        } catch (ParseException ex){
-            logger.error(ApplicationDebugMessages.CANNOT_PARSE_DATE.getMessage(), stringDate);
+        String stringDate = "";
+        if (list.size() != 0){
+            stringDate = list.get(0);
+            try {
+                date = dateFormat.parse(stringDate);
+            } catch (ParseException ex){
+                logger.error(ApplicationDebugMessages.CANNOT_PARSE_DATE.getMessage(), stringDate);
+            }
         }
 
         return date;
     }
 
     public String getLogLevel(){
-        return list.get(9);
+        if (list.size() != 0)
+            return list.get(9);
+
+        return null;
     }
 
-    public int getItemCount(){
-        return Integer.parseInt(list.get(11));
+    public Integer getItemCount(){
+        if (list.size() != 0)
+            return Integer.parseInt(list.get(11));
+        return null;
     }
 
     public void parse(){

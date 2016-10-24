@@ -1,9 +1,11 @@
 package org.sbx.objects;
 
+import org.sbx.interfaces.Buildable;
+
 /**
  * Created by aloginov on 21.10.16.
  */
-public final class ESK363DBRecord extends DBRecord {
+public class ESK363DBRecord extends DBRecord implements Buildable {
 
     private int itemCount;
 

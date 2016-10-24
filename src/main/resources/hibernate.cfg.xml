@@ -11,6 +11,6 @@
         <property name="show_sql">true</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <mapping resource="ESK363DBRecord.hbm.xml"/>
+        <mapping class="org.sbx.objects.ESK363DBRecord" resource="ESK363DBRecord.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

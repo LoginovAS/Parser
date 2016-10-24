@@ -1,9 +1,7 @@
 package org.sbx.builders;
 
-import org.sbx.interfaces.Buildable;
 import org.sbx.interfaces.Builder;
-import org.sbx.objects.ESK363LogRecord;
-import org.sbx.objects.LogRecord;
+import org.sbx.objects.ESK363DBRecord;
 
 import java.util.Date;
 
@@ -12,28 +10,28 @@ import java.util.Date;
  */
 public class ESK363RecordBuilder implements Builder {
 
-    private ESK363LogRecord logRecord;
+    private ESK363DBRecord dbRecord;
     private Date date;
     private int itemCount;
     private String logLevel;
 
     public ESK363RecordBuilder(){
-        this.logRecord = new ESK363LogRecord();
+        this.dbRecord = new ESK363DBRecord();
     }
 
     public void addDate(Date date){
-        logRecord.setDate(date);
+        dbRecord.setDate(date);
     }
 
     public void addItemCount(int itemCount){
-        logRecord.setItemCount(itemCount);
+        dbRecord.setItemCount(itemCount);
     }
 
     public void setLogLevel(String logLevel){
-        logRecord.setLogLevel(logLevel);
+        dbRecord.setLogLevel(logLevel);
     }
 
-    public ESK363LogRecord build() {
-        return logRecord;
+    public ESK363DBRecord build() {
+        return dbRecord;
     }
 }
