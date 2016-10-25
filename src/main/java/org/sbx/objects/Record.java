@@ -1,5 +1,8 @@
 package org.sbx.objects;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Date;
 import java.util.Observable;
 
@@ -8,18 +11,12 @@ import java.util.Observable;
  */
 public abstract class Record extends Observable {
 
+    private static final Logger logger = LogManager.getLogger(Record.class);
+
+    protected int id;
     protected Date date;
-    protected String logLevel;
-    protected int itemsCount;
     protected boolean isChanged;
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    protected String logLevel;
 
     public String getLogLevel() {
         return logLevel;
@@ -29,26 +26,30 @@ public abstract class Record extends Observable {
         this.logLevel = logLevel;
     }
 
-    public int getItemsCount() {
-        return itemsCount;
+    public Date getDate() {
+        return date;
     }
 
-    public void setItemsCount(int itemsCount) {
-        this.itemsCount = itemsCount;
+    public void setDate(Date date) {
+        this.date = date;
+        logger.trace("Date set " + date);
     }
 
-    protected void change(){
-        if (isChanged == false)
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public void change(){
+        if (isChanged == false) {
             isChanged = true;
-    }
-
-    protected void saved(){
-        if (isChanged == true){
-            isChanged = false;
+            setChanged();
+            notifyObservers();
+            logger.trace("isChanged flag set " + isChanged);
         }
+
     }
-
-    public abstract void save();
-
-    public abstract void load();
 }

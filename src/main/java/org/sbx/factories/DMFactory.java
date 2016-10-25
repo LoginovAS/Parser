@@ -23,9 +23,8 @@ public class DMFactory {
 
     private void initDataManager(Class<DataManager> clazz){
 
-        DataManager inst = null;
         try {
-            inst = clazz.newInstance();
+            dataManager = clazz.newInstance();
         } catch (IllegalAccessException ex){
             logger.fatal(ex);
         } catch (InstantiationException ex){
@@ -34,9 +33,8 @@ public class DMFactory {
 
     }
 
-    public DataManager makeManager(Mode mode){
+    public DataManager getManager(Mode mode){
         this.dataManager.setMode(mode);
-        this.dataManager.initConnection();
 
         return dataManager;
     }
