@@ -5,6 +5,6 @@ package org.sbx.interfaces;
  */
 public interface Builder {
 
-    public Buildable build();
+    Buildable build();
 
 }

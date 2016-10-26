@@ -2,15 +2,14 @@ package org.sbx.enums;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.sbx.interfaces.DataManager;
 
 /**
  * Created by aloginov on 20.10.16.
  */
 public enum ManagerClass {
 
-    DATABASE("org.sbx.managers.DBManager"),
-    FILE("org.sbx.managers.FileManager");
+    DATABASE("org.sbx.DAO.DBRecordDAO"),
+    FILE("org.sbx.DAO.FileDAO");
 
     private String className;
     private final Logger logger = LogManager.getLogger(ManagerClass.class);

@@ -4,18 +4,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Date;
-import java.util.Observable;
 
 /**
  * Created by aloginov on 20.10.16.
  */
-public abstract class Record extends Observable {
+public abstract class LogRecord {
 
-    private static final Logger logger = LogManager.getLogger(Record.class);
+    private static final Logger logger = LogManager.getLogger(LogRecord.class);
 
     protected int id;
     protected Date date;
-    protected boolean isChanged;
     protected String logLevel;
 
     public String getLogLevel() {
@@ -41,15 +39,5 @@ public abstract class Record extends Observable {
 
     public void setId(int id){
         this.id = id;
-    }
-
-    public void change(){
-        if (isChanged == false) {
-            isChanged = true;
-            setChanged();
-            notifyObservers();
-            logger.trace("isChanged flag set " + isChanged);
-        }
-
     }
 }

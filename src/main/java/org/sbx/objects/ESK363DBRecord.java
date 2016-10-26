@@ -16,4 +16,9 @@ public class ESK363DBRecord extends DBRecord implements Buildable {
     public void setItemCount(int itemCount){
         this.itemCount = itemCount;
     }
+
+    @Override
+    public String toString() {
+        return getDate() + " " + getLogLevel() + " " + getItemCount();
+    }
 }
