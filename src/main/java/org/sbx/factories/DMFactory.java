@@ -2,11 +2,8 @@ package org.sbx.factories;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.sbx.enums.ManagerClass;
 import org.sbx.enums.Mode;
-import org.sbx.interfaces.DataManager;
-import org.sbx.managers.DBManager;
-import org.sbx.managers.FileManager;
+import org.sbx.interfaces.RecordDAO;
 
 /**
  * Created by aloginov on 20.10.16.
@@ -14,17 +11,17 @@ import org.sbx.managers.FileManager;
 public class DMFactory {
 
     private static final Logger logger = LogManager.getLogger(DMFactory.class);
-    private DataManager dataManager;
-    private Class<DataManager> managerClass;
+    private RecordDAO dmManager;
+    private Class<RecordDAO> managerClass;
 
     public void setManagerClass(Class clazz){
             initDataManager(clazz);
     }
 
-    private void initDataManager(Class<DataManager> clazz){
+    private void initDataManager(Class<RecordDAO> clazz){
 
         try {
-            dataManager = clazz.newInstance();
+            dmManager = clazz.newInstance();
         } catch (IllegalAccessException ex){
             logger.fatal(ex);
         } catch (InstantiationException ex){
@@ -33,9 +30,9 @@ public class DMFactory {
 
     }
 
-    public DataManager getManager(Mode mode){
-        this.dataManager.setMode(mode);
+    public RecordDAO getManager(Mode mode){
+        this.dmManager.setMode(mode);
 
-        return dataManager;
+        return dmManager;
     }
 }

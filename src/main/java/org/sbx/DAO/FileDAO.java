@@ -1,16 +1,14 @@
-package org.sbx.managers;
+package org.sbx.DAO;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.sbx.enums.Mode;
 import org.sbx.exceptions.FilesException;
-import org.sbx.interfaces.DataManager;
-import org.sbx.interfaces.LoggingMessenger;
+import org.sbx.interfaces.RecordDAO;
 import org.sbx.messages.ApplicationDebugMessages;
 import org.sbx.messages.FileErrorMessages;
 import org.sbx.messages.FileInfoMessages;
-import org.sbx.objects.DBRecord;
-import org.sbx.objects.Record;
+import org.sbx.objects.LogRecord;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,21 +20,18 @@ import java.util.Scanner;
 /**
  * Created by aloginov on 19.10.16.
  */
-public class FileManager extends DataManager {
-    private static final Logger logger = LogManager.getLogger(FileManager.class);
+public class FileDAO extends RecordDAO {
+    private static final Logger logger = LogManager.getLogger(FileDAO.class);
 
     private File file;
 
-    private FileInputStream inputStream;
     private Scanner scanner;
 
     private Mode mode;
 
     List<String> list = new ArrayList<String>();
 
-    private boolean success;
-
-    public FileManager(){
+    public FileDAO(){
 
     }
 
@@ -71,17 +66,17 @@ public class FileManager extends DataManager {
     private void openFileForInput(){
         logger.debug(ApplicationDebugMessages.METHOD_STARTED);
 
-        this.success = false;
+        boolean success = false;
 
         if (!isFileExists()) {
             logger.error(FileErrorMessages.FILE_DOES_NOT_EXIST.getMessage(), file.getAbsolutePath());
         } else {
             try {
-                this.inputStream = new FileInputStream(file);
+                FileInputStream inputStream = new FileInputStream(file);
                 this.scanner = new Scanner(inputStream);
 
                 if (this.scanner != null) {
-                    this.success = true;
+                    success = true;
                 }
             } catch (IOException ex){
                 logger.error(ex);
@@ -96,11 +91,25 @@ public class FileManager extends DataManager {
         logger.debug(ApplicationDebugMessages.METHOD_FINISHED);
     }
 
+    public List<String> getLogNames(String folderName){
+        List<String> logNames = new ArrayList<String>();
+        File folder = new File(folderName);
+        if (folder.isDirectory()){
+            for (File file: folder.listFiles())
+                if (file.isDirectory())
+                    getLogNames(file.getAbsolutePath());
+                else
+                    logNames.add(file.getAbsolutePath());
+        }
+
+        return logNames;
+    }
+
     public List<String> getDataList(){
         return list;
     }
 
-    public Record getRecord() {
+    public LogRecord getRecord() {
         return null;
     }
 

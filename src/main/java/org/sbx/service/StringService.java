@@ -6,13 +6,9 @@ package org.sbx.service;
 public class StringService {
 
     public static String getExecutionListenerRegExp(){
-        StringBuilder stringBuilder = new StringBuilder("");
-        stringBuilder.append("((\\d{2})\\.(\\d{2})\\.(\\d{4})\\s+");
-        stringBuilder.append("(\\d{2}):(\\d{2}):(\\d{2})\\.(\\d{3}))\\s+");
-        stringBuilder.append("(.+)\\s+(INFO)\\s+");
-        stringBuilder.append("(com.\\w+.batch.listener.ExecutionListener -)");
-        stringBuilder.append("\\s+(\\d+)");
+        String string = "((\\d{2})\\.(\\d{2})\\.(\\d{4})\\s+(\\d{2}):(\\d{2}):(\\d{2})\\.(\\d{3}))\\s+" +
+                "(.+)\\s+(INFO)\\s+(com.\\w+.batch.listener.ExecutionListener -)\\s+(\\d+)";
 
-        return stringBuilder.toString();
+        return string;
     }
 }
