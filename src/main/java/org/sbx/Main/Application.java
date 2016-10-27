@@ -18,8 +18,6 @@ public class Application {
 
         DataManager dataManager = new DataManager();
 
-        dataManager.loadToDB("esk363");
-
         for (ESK363DBRecord record: dataManager.getByDateRange("10.14.2016 17:35:26", "10.14.2016 17:35:42"))
             logger.info(record);
 
